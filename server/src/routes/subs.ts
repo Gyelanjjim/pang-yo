@@ -98,7 +98,7 @@ const getSub = async (req: Request, res: Response) => {
 
     return res.json(sub);
   } catch (error) {
-    return res.status(404).json({ error: "커뮤니티를 찾을 수 없습니다." });
+    return res.status(404).json({ error: "오븐를 찾을 수 없습니다." });
   }
 };
 
@@ -110,7 +110,7 @@ const ownSub = async (req: Request, res: Response, next: NextFunction) => {
     if (sub.username !== user.username) {
       return res
         .status(403)
-        .json({ error: "이 커뮤니티를 소유하고 있지 않습니다." });
+        .json({ error: "이 오븐을 소유하고 있지 않습니다." });
     }
 
     res.locals.sub = sub;

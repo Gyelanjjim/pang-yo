@@ -16,9 +16,15 @@ const SideBar = ({ sub }: Props) => {
         <div className="p-3">
           <p className="mb-3 text-base">{sub?.description}</p>
           <div className="flex mb-3 text-sm font-medium">
-            <div className="w-1/2">
-              <p>회원수 {sub?.user.count}명</p>
-            </div>
+            {!sub.user?.count ? (
+              <div className="w-1/2">
+                <p>제빵사 0명</p>
+              </div>
+            ) : (
+              <div className="w-1/2">
+                <p>제빵사 {sub.user?.count}명</p>
+              </div>
+            )}
           </div>
           <p className="my-3">
             오븐 시작일: {dayjs(sub?.createdAt).format("MM.DD.YYYY")}

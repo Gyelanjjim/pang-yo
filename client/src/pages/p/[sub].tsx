@@ -106,7 +106,7 @@ const SubPage = () => {
                   {sub.imageUrl && (
                     <Image
                       src={sub.imageUrl}
-                      alt="커뮤니티 이미지"
+                      alt="오븐 이미지"
                       width={70}
                       height={70}
                       className="rounded-full"

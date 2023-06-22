@@ -32,7 +32,6 @@ const Home: NextPage = () => {
   const isInitialLoading = !data && !error; // 데이터가 없고 에러도 없으면 로딩중이므로
   const posts: Post[] = data ? ([] as Post[]).concat(...data) : [];
 
-  // console.log("data", data);
   const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
 
   const [observedPost, setObservedPost] = useState("");
