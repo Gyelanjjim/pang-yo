@@ -5,7 +5,7 @@ const nextConfig = {
     domains: [
       "www.gravatar.com",
       "localhost",
-      "ec2-3-35-3-52.ap-northeast-2.compute.amazonaws.com",
+      "ec2-15-164-212-140.ap-northeast-2.compute.amazonaws.com",
     ],
   },
   experimental: {
