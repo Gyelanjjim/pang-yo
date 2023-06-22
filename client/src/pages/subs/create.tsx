@@ -86,7 +86,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     // 쿠키가 없으면 에러를 보낸다
     if (!cookie) throw new Error("Missing auth token cookie");
     // 쿠키가 있다면 백엔드에서 인증처리
-    await axios.get("/auth/me", { headers: { cookie } });
+    await axios.get(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api/auth/me`, {
+      headers: { cookie },
+    });
 
     return { props: {} };
   } catch (error) {
