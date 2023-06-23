@@ -23,7 +23,7 @@ const createSub = async (req: Request, res: Response) => {
       .where("lower(sub.name) = :name", { name: name.toLowerCase() })
       .getOne();
 
-    if (sub) errors.name = "서브가 이미 존재합니다";
+    if (sub) errors.name = "오븐이 이미 존재합니다";
 
     if (Object.keys(errors).length > 0) {
       throw errors;
@@ -60,7 +60,6 @@ const topSubs = async (req: Request, res: Response) => {
       .leftJoin(Post, "p", `s.name = p."subName"`)
       .groupBy('s.title, s.name, "imageUrl"')
       .orderBy(`"postCount"`, "DESC")
-      .limit(5)
       .execute();
     return res.json(subs);
   } catch (error) {
@@ -73,7 +72,7 @@ const getSub = async (req: Request, res: Response) => {
   const name = req.params.name;
   try {
     const sub = await Sub.findOneByOrFail({ name });
-    console.log("aaaaaa", sub);
+
     // 포스트를 생성한 후 해당 sub에 속하는 포스트 정보 넣어주기
     const posts = await Post.find({
       where: { subName: sub.name },
@@ -90,7 +89,7 @@ const getSub = async (req: Request, res: Response) => {
       .execute();
 
     sub.posts = posts;
-    sub.user = subUserCount[0];
+    sub.user = subUserCount[0] || { count: 0 };
 
     if (res.locals.user) {
       sub.posts.forEach((p) => p.setUserVote(res.locals.user));

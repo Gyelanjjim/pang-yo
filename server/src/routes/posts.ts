@@ -102,10 +102,7 @@ const createPostComment = async (req: Request, res: Response) => {
     comment.body = body;
     comment.user = res.locals.user;
     comment.post = post;
-
-    if (res.locals.user) {
-      post.setUserVote(res.locals.user);
-    }
+    post.setUserVote(res.locals.user); // res.locals.user는 반드시 존재한다.
 
     await comment.save();
     return res.json(comment);
@@ -125,6 +122,7 @@ postRouter.get("/:identifier/:slug/comments", userMiddleware, getPostComments);
 postRouter.post(
   "/:identifier/:slug/comments",
   userMiddleware,
+  authMiddleware,
   createPostComment
 );
 export default postRouter;

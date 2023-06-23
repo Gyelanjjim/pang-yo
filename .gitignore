@@ -1,3 +1,8 @@
+server/public/images/
+.env.development
+.env.production
+
+
 # docker
 data
 

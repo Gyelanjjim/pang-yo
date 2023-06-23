@@ -27,7 +27,7 @@ const getUserData = async (req: Request, res: Response) => {
 
     // 게시글, 댓글 투표를 위한 유저 정보 설정
     if (res.locals.user) {
-      const { user } = res.locals;
+      const user = res.locals.user;
       posts.forEach((p) => p.setUserVote(user));
       comments.forEach((c) => c.setUserVote(user));
     }
