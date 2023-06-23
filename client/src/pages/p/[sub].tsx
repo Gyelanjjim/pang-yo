@@ -60,7 +60,7 @@ const SubPage = () => {
     renderPosts = <p className="text-lg text-center">로딩중...</p>;
   } else if (sub.posts.length === 0) {
     renderPosts = (
-      <p className="text-lg text-center">아직 작성된 포스트가 없습니다.</p>
+      <p className="text-lg text-center">아직 반죽된 빵이 없습니다.</p>
     );
   } else {
     renderPosts = sub.posts.map((post: Post) => (
