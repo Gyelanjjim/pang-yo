@@ -18,11 +18,11 @@ const SideBar = ({ sub }: Props) => {
           <div className="flex mb-3 text-sm font-medium">
             {!sub.user?.count ? (
               <div className="w-1/2">
-                <p>제빵사 0명</p>
+                <p>제빵수험생 0명</p>
               </div>
             ) : (
               <div className="w-1/2">
-                <p>제빵사 {sub.user?.count}명</p>
+                <p>제빵수험생 {sub.user?.count}명</p>
               </div>
             )}
           </div>
