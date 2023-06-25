@@ -18,7 +18,8 @@
 
 ## 👩‍💻 DB Modeling
 
-![pangyo](https://github.com/Gyelanjjim/pang-yo/assets/108852943/8e42ffdc-2dc0-4063-a19e-dad415ebb991)
+![Untitled](https://github.com/Gyelanjjim/pang-yo/assets/108852943/df25748e-6efe-47c9-a47c-39701186e713)
+
 
 ## 📌 담당한 Pang-yo 기능
 
