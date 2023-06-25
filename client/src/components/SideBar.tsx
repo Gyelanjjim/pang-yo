@@ -17,11 +17,22 @@ const SideBar = ({ sub }: Props) => {
           <p className="mb-3 text-base">{sub?.description}</p>
           <div className="flex mb-3 text-sm font-medium">
             <div className="w-1/2">
+              오븐관리자
+              <Link
+                href={`/u/${sub.username}`}
+                className="mx-1 hover:underline"
+              >
+                /u/{sub.username}
+              </Link>
+            </div>
+          </div>
+          <div className="flex mb-3 text-sm font-medium">
+            <div className="w-1/2">
               <p>제빵수험생 {sub.user?.count}명</p>
             </div>
           </div>
           <p className="my-3">
-            오븐 시작일: {dayjs(sub?.createdAt).format("MM.DD.YYYY")}
+            오븐시작일: {dayjs(sub?.createdAt).format("MM.DD.YYYY")}
           </p>
 
           {authenticated && (

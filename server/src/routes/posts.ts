@@ -104,10 +104,10 @@ const createPostComment = async (req: Request, res: Response) => {
     comment.user = res.locals.user;
     comment.post = post;
 
-    if(res.locals.user){
-      post.setUserVote(res.locals.user); 
+    if (res.locals.user) {
+      post.setUserVote(res.locals.user);
     }
-  
+
     await comment.save();
     return res.json(comment);
   } catch (error) {
@@ -117,18 +117,19 @@ const createPostComment = async (req: Request, res: Response) => {
 };
 
 const getPostsSearch = async (req: Request, res: Response) => {
+  const currentPage: number = (req.query.page || 0) as number;
+  const perPage: number = (req.query.count || 8) as number;
   const { value } = req.query;
-  // 제목 또는 내용에 대한 검색: 
+  // 제목 또는 내용에 대한 검색:
   try {
     const posts = await Post.find({
-      where: [
-        { title: Like(`%${value}%`) },
-        { body: Like(`%${value}%`) },
-      ],
+      where: [{ title: Like(`%${value}%`) }, { body: Like(`%${value}%`) }],
       order: { createdAt: "DESC" },
       relations: ["sub", "votes", "comments"],
-    })
-    
+      skip: currentPage * perPage,
+      take: perPage,
+    });
+
     if (res.locals.user) {
       posts.forEach((p) => p.setUserVote(res.locals.user));
     }
@@ -138,7 +139,7 @@ const getPostsSearch = async (req: Request, res: Response) => {
     console.log(error);
     return res.status(500).json({ error: "문제가 발생했습니다." });
   }
-}
+};
 
 const postRouter = Router();
 

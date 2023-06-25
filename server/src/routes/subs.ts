@@ -185,6 +185,23 @@ const uploadSubImage = async (req: Request, res: Response) => {
   }
 };
 
+const updateSub = async (req: Request, res: Response) => {
+  const sub: Sub = res.locals.sub;
+  const { description, title } = req.body;
+  const name = req.params.name;
+  try {
+    const result = await AppDataSource.createQueryBuilder()
+      .update(Sub)
+      .set({ title, description })
+      .andWhere("name = :name", { name: name })
+      .execute();
+    return res.json({ message: "오븐이 업데이트 되었습니다." });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "문제가 발생했습니다." });
+  }
+};
+
 const subsRouter = Router();
 
 subsRouter.post("/", userMiddleware, authMiddleware, createSub);
@@ -198,5 +215,6 @@ subsRouter.post(
   upload.single("file"),
   uploadSubImage
 );
+subsRouter.patch("/:name", userMiddleware, authMiddleware, ownSub, updateSub);
 
 export default subsRouter;

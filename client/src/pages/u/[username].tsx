@@ -6,6 +6,7 @@ import React from "react";
 import useSWR from "swr";
 import PostCard from "../../components/PostCard";
 import { Comment, Post } from "../../types";
+import { FaCommentAlt } from "react-icons/fa";
 
 const UserPage = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const UserPage = () => {
                 className="flex my-4 bg-white rounded"
               >
                 <div className="flex-shrink-0 w-10 py-10 text-center bg-white border-r rounded-l">
-                  <i className="text-gray-500 fas fa-comment-alt fa-xs"></i>
+                  <FaCommentAlt className="text-gray-500 ml-2.5" />
                 </div>
                 <div className="w-full p-2">
                   <p className="mb-2 text-xs text-gray-500">

@@ -118,9 +118,8 @@ const PostPage = () => {
                   <h1 className="my-1 text-xl font-medium">{post.title}</h1>
                   <p className="my-3 text-sm">{post.body}</p>
                   <div className="flex">
+                    <FaCommentAlt className="mr-1 mt-1 text-sm" />
                     <button>
-                      {/* font awesome에서 가져온 아이콘 */}
-                      <FaCommentAlt className="mr-1 fas fa-comment-alt fa-xs"></FaCommentAlt>
                       <span className="font-bold">
                         {post.commentCount} Comments
                       </span>
