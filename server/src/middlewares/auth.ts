@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../entities/User";
+import Sub from "../entities/Sub";
 // 유저정보나 유저등급에 따라 인증을 따로
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

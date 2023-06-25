@@ -186,11 +186,10 @@ const uploadSubImage = async (req: Request, res: Response) => {
 };
 
 const updateSub = async (req: Request, res: Response) => {
-  const sub: Sub = res.locals.sub;
   const { description, title } = req.body;
   const name = req.params.name;
   try {
-    const result = await AppDataSource.createQueryBuilder()
+    await AppDataSource.createQueryBuilder()
       .update(Sub)
       .set({ title, description })
       .andWhere("name = :name", { name: name })

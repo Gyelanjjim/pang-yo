@@ -116,13 +116,13 @@ const PostCard = ({
                   width={12}
                   height={12}
                 />
-              </Link>
+              </Link>{" "}
               <Link
                 href={`/p/${subName}`}
                 className="ml-2 text-xs font-bold cursor-pointer hover:underline"
               >
                 /p/{subName}
-              </Link>
+              </Link>{" "}
               <span className="mx-1 text-xs text-gray-400">•</span>
             </div>
           )}

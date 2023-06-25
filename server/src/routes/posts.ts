@@ -5,7 +5,9 @@ import Post from "../entities/Post";
 import Sub from "../entities/Sub";
 import Comment from "../entities/Comment";
 import { AppDataSource } from "../data-source";
-import { In, Like } from "typeorm";
+import { DataSource, In, Like } from "typeorm";
+import { User } from "../entities/User";
+import Vote from "../entities/Vote";
 
 const getPosts = async (req: Request, res: Response) => {
   const currentPage: number = (req.query.page || 0) as number;
@@ -141,6 +143,29 @@ const getPostsSearch = async (req: Request, res: Response) => {
   }
 };
 
+const deletePost = async (req: Request, res: Response) => {
+  const { identifier, slug } = req.params;
+  const user: User = res.locals.user;
+  try {
+    const post = await Post.findOneOrFail({ where: { identifier, slug } });
+    const sub = await Sub.findOneOrFail({ where: { name: post.subName } });
+    // 오븐 관리자 또는 빵 작성자면 빵을 삭제할 수 있다.
+    if (sub.username === user.username || post.username === user.username) {
+      await AppDataSource.createQueryBuilder()
+        .softDelete()
+        .from(Post)
+        .where("identifier = :identifier", { identifier })
+        .execute();
+      return res.status(204).end();
+    } else {
+      return res.status(403).json({ error: "권한이 없습니다." });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "문제가 발생했습니다." });
+  }
+};
+
 const postRouter = Router();
 
 postRouter.get("/:identifier/:slug", userMiddleware, getPost);
@@ -154,5 +179,11 @@ postRouter.post(
   createPostComment
 );
 postRouter.get("/search", userMiddleware, getPostsSearch);
+postRouter.delete(
+  "/:identifier/:slug",
+  userMiddleware,
+  authMiddleware,
+  deletePost
+);
 
 export default postRouter;

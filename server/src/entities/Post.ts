@@ -1,6 +1,7 @@
 import {
   BeforeInsert,
   Column,
+  DeleteDateColumn,
   Entity,
   Index,
   JoinColumn,
@@ -36,6 +37,9 @@ export default class Post extends BaseEntity {
 
   @Column()
   username: string;
+
+  @DeleteDateColumn({ precision: null })
+  deletedAt: Date | null;
 
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: "username", referencedColumnName: "username" })
