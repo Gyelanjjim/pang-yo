@@ -3,8 +3,10 @@
 # <p align="center">🍞🍦 Pang-yo 빵요
 
 <P align="center">📆 (1차) 2023.05.29 ~ 2023.06.24.
-<img width="1440" alt="스크린샷 2023-06-24 오전 1 06 20" src="https://github.com/Gyelanjjim/pang-yo/assets/108852943/b6c5c11b-6343-4828-8b88-04524ec3b311">
 
+<img width="1440" alt="스크린샷 2023-06-24 오전 1 06 20" src="https://github.com/Gyelanjjim/pang-yo/assets/108852943/ad402889-4155-402e-95f6-891bcc56996e">
+
+  
 ## 🏆 Pang-yo 목표
 
 - 제빵사와 오븐, 빵 컨셉의 게시판 구현
@@ -17,7 +19,8 @@
 
 ## 👩‍💻 DB Modeling
 
-![pangyo](https://github.com/Gyelanjjim/pang-yo/assets/108852943/0b84738c-9f30-48a3-a6d0-92fc4add6972)
+![pangyo](https://github.com/Gyelanjjim/pang-yo/assets/108852943/8e42ffdc-2dc0-4063-a19e-dad415ebb991)
+
 
 ## 📌 PangYo 주요 기능
 

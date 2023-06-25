@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import NavBar from "@/components/NavBar";
 import { SWRConfig } from "swr";
 import Head from "next/head";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }: AppProps) {
   axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api`;
@@ -29,12 +30,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* 상위 페이지에 아래와 같이 설정해주면 아이콘이 적용됨 v6는 유료화됨 */}
-        <script
+        <Script
           defer
           src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
           integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
           crossOrigin="anonymous"
-        ></script>
+        ></Script>
       </Head>
       <SWRConfig
         value={{

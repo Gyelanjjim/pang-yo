@@ -4,6 +4,8 @@ import authMiddleware from "../middlewares/auth";
 import Post from "../entities/Post";
 import Sub from "../entities/Sub";
 import Comment from "../entities/Comment";
+import { AppDataSource } from "../data-source";
+import { In, Like } from "typeorm";
 
 const getPosts = async (req: Request, res: Response) => {
   const currentPage: number = (req.query.page || 0) as number;
@@ -38,14 +40,13 @@ const getPost = async (req: Request, res: Response) => {
     });
 
     if (res.locals.user) {
-      // 유저 정보가 있으면
       post.setUserVote(res.locals.user);
     }
 
     return res.send(post);
   } catch (error) {
     console.log(error);
-    return res.status(404).json({ error: "게시물을 찾을 수 없습니다." });
+    return res.status(404).json({ error: "빵을 찾을 수 없습니다." });
   }
 };
 
@@ -102,22 +103,48 @@ const createPostComment = async (req: Request, res: Response) => {
     comment.body = body;
     comment.user = res.locals.user;
     comment.post = post;
-    post.setUserVote(res.locals.user); // res.locals.user는 반드시 존재한다.
 
+    if(res.locals.user){
+      post.setUserVote(res.locals.user); 
+    }
+  
     await comment.save();
     return res.json(comment);
   } catch (error) {
     console.log(error);
-    return res.status(404).json({ error: "게시물을 찾을 수 없습니다." });
+    return res.status(404).json({ error: "빵을 찾을 수 없습니다." });
   }
 };
 
+const getPostsSearch = async (req: Request, res: Response) => {
+  const { value } = req.query;
+  // 제목 또는 내용에 대한 검색: 
+  try {
+    const posts = await Post.find({
+      where: [
+        { title: Like(`%${value}%`) },
+        { body: Like(`%${value}%`) },
+      ],
+      order: { createdAt: "DESC" },
+      relations: ["sub", "votes", "comments"],
+    })
+    
+    if (res.locals.user) {
+      posts.forEach((p) => p.setUserVote(res.locals.user));
+    }
+
+    return res.json(posts);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "문제가 발생했습니다." });
+  }
+}
+
 const postRouter = Router();
+
 postRouter.get("/:identifier/:slug", userMiddleware, getPost);
 postRouter.post("/", userMiddleware, authMiddleware, createPost);
-
 postRouter.get("/", userMiddleware, getPosts);
-
 postRouter.get("/:identifier/:slug/comments", userMiddleware, getPostComments);
 postRouter.post(
   "/:identifier/:slug/comments",
@@ -125,4 +152,6 @@ postRouter.post(
   authMiddleware,
   createPostComment
 );
+postRouter.get("/search", userMiddleware, getPostsSearch);
+
 export default postRouter;
